@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pattern.dao;
 
 import connection.Conexao;
@@ -13,20 +8,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Cliente;
 
-/**
- *
- * @author nicho
- */
 public class ClienteDao extends AbstractDao {
 
     public ClienteDao(Conexao conexao) {
         super(conexao);
     }
-    
+
     @Override
     public void saveOrUpdate(Object object) throws SQLException {
         Cliente cliente = (Cliente) object;
-        System.out.println("DAO SalvandoAtualizando o cliente: "+cliente.toString());
+        System.out.println("DAO SalvandoAtualizando o cliente: " + cliente.toString());
         String sql = "";
         try {
             Integer id = cliente.getId();
@@ -38,7 +29,7 @@ public class ClienteDao extends AbstractDao {
                         + " WHERE id = ?";
                 createPreparedStatement(sql);
                 preparedStm.setString(1, cliente.getNome());
-                preparedStm.setString(2, cliente.getEmail()+ "");
+                preparedStm.setString(2, cliente.getEmail() + "");
                 preparedStm.setString(3, cliente.getCelular() + "");
                 preparedStm.setInt(4, cliente.getId());
             } else {
@@ -47,8 +38,8 @@ public class ClienteDao extends AbstractDao {
                         + "VALUES(DEFAULT, ?, ?, ?)";
                 createPreparedStatement(sql);
                 preparedStm.setString(1, cliente.getNome());
-                preparedStm.setString(2, cliente.getEmail()+ "");
-                preparedStm.setString(3, cliente.getCelular()+ "");
+                preparedStm.setString(2, cliente.getEmail() + "");
+                preparedStm.setString(3, cliente.getCelular() + "");
             }
             preparedStm.executeUpdate();
             destroyPreparedStatement();
@@ -66,7 +57,7 @@ public class ClienteDao extends AbstractDao {
             sql = "DELETE FROM cliente WHERE id = ?";
             createPreparedStatement(sql);
             preparedStm.setInt(1, cliente.getId());
-            preparedStm.executeQuery();
+            preparedStm.executeUpdate();
             destroyPreparedStatement();
         } catch (SQLException ex) {
             throw new SQLException(ex.getMessage(), sql, ex.getCause());
@@ -118,5 +109,5 @@ public class ClienteDao extends AbstractDao {
 
         return lista;
     }
-    
+
 }

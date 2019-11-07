@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import bean.CRServer;
-import connection.Conexao;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -19,12 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
-import pattern.dao.ClienteDao;
 
-/**
- *
- * @author nicho
- */
 public class ClienteController {
 
     private CRServer stub;

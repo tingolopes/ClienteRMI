@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ 
+ 
+ 
  */
 package view;
 
@@ -180,7 +180,7 @@ public class AutenticadorDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-        
+
         JOptionPane.showMessageDialog(null, "Bem Vindo ao Chat");
         this.dispose();
     }//GEN-LAST:event_btnLogarActionPerformed
@@ -190,7 +190,7 @@ public class AutenticadorDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmail1ActionPerformed
 
     private void btnCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar1ActionPerformed
-        
+
         JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!!");
         this.dispose();
     }//GEN-LAST:event_btnCadastrar1ActionPerformed

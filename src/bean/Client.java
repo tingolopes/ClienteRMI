@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.io.Serializable;
@@ -15,10 +10,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
-/**
- *
- * @author nicho
- */
 public class Client implements Serializable, CRClient, Runnable {
 
     private static final long serialVersionUID = 1L;
@@ -32,9 +23,9 @@ public class Client implements Serializable, CRClient, Runnable {
         this.server = chatinterface;
         this.clientName = clientname;
         this.clientPass = password;
-        
+
     }
-    
+
     public void checkCredential() throws RemoteException, UnknownHostException {
         String ip = InetAddress.getLocalHost().getHostAddress();
         /**
@@ -80,12 +71,12 @@ public class Client implements Serializable, CRClient, Runnable {
             System.out.println("\nNome ou senha de usuário incorreta...");
         }
     }
-    
+
     public static void main(String[] args) throws RemoteException, NotBoundException, UnknownHostException {
         Scanner s = new Scanner(System.in);
-        String clientName = "", clientPass="", serverName="";
+        String clientName = "", clientPass = "", serverName = "";
         int port = 12345;
-        
+
         System.out.println("\n~~ Bem-vindo ao RMI Chat Program ~~\n");
         System.out.print("Digite o nome do servidor: ");
         serverName = s.nextLine();
@@ -93,23 +84,23 @@ public class Client implements Serializable, CRClient, Runnable {
         clientName = s.nextLine();
         System.out.print("Digite sua senha: ");
         clientPass = s.nextLine();
-        
+
         System.out.println("\nConectando ao RMI Server...\n");
-        
+
         Registry registro = LocateRegistry.getRegistry(serverName, port);
-        CRServer crServer = (CRServer)registro.lookup("RMIServer");
-        
+        CRServer crServer = (CRServer) registro.lookup("RMIServer");
+
         System.out.println("\nCriando o registro do cliente");
-        
+
         Client client = new Client(crServer, clientName, clientPass);
         // cria a identificação do objeto remoto do cliente
         CRClient crClient = (CRClient) UnicastRemoteObject.exportObject(client, 0);
-        
+
         Registry registroCliente = LocateRegistry.createRegistry(1099);
         // adiciona o objeto remoto ao registro
         registroCliente.rebind(clientName, crClient);
         client.checkCredential();
-        
+
         new Thread(client).run();
     }
 }

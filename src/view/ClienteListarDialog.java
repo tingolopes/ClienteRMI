@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ 
+ 
+ 
  */
 package view;
 
@@ -284,8 +284,8 @@ public class ClienteListarDialog extends javax.swing.JFrame {
     private void btCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarActionPerformed
         // TODO add your handling code here:
         ClienteAtualizarDialog dialog
-                    = new ClienteAtualizarDialog(
-                            ClienteListarDialog.this, true);
+                = new ClienteAtualizarDialog(
+                        ClienteListarDialog.this, true);
         dialog.setCr(controller);
         dialog.setVisible(true);
         refreshTable();
