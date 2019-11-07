@@ -247,6 +247,7 @@ public class ClienteListarDialog extends javax.swing.JFrame {
                     = new ClienteAtualizarDialog(
                             ClienteListarDialog.this, true,
                             objeto);
+            dialog.setCr(controller);
             dialog.setVisible(true);
             refreshTable();
         } else {
@@ -285,6 +286,7 @@ public class ClienteListarDialog extends javax.swing.JFrame {
         ClienteAtualizarDialog dialog
                     = new ClienteAtualizarDialog(
                             ClienteListarDialog.this, true);
+        dialog.setCr(controller);
         dialog.setVisible(true);
         refreshTable();
     }//GEN-LAST:event_btCriarActionPerformed

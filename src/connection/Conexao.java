@@ -17,7 +17,7 @@ public class Conexao {
 
     private static Conexao instancia;
     private Connection conexao = null;
-    private String url = "jdbc:mysql://localhost/sd";
+    private String url = "jdbc:mysql://localhost:3306/sd";
     private String user = "root";
     private String password = "";
 

@@ -5,79 +5,82 @@
  */
 package controller;
 
+import bean.CRServer;
 import connection.Conexao;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import pattern.dao.ClienteDao;
-import pattern.dao.DaoPattern;
 
 /**
  *
  * @author nicho
  */
 public class ClienteController {
-    private DaoPattern dao;
-    
+
+    private CRServer stub;
+
     public ClienteController() throws ClassNotFoundException, SQLException {
-        dao = new ClienteDao(Conexao.getInstancia());
+        String host = JOptionPane.showInputDialog(null, "Digite o IP do servidor", "localhost");
+        try {
+            Registry registro = LocateRegistry.getRegistry(host);
+            try {
+                stub = (CRServer) registro.lookup("RMIServer");
+            } catch (NotBoundException | AccessException ex) {
+                Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    public void salvar(Integer id, String nome, String email,
-            String celular) throws SQLException {
+
+    public void salvarOuAtualizar(Integer id, String nome, String email, String celular) throws SQLException {
         Cliente cliente = new Cliente(id, nome, email, celular);
         try {
-            dao.save(cliente);
-            dao.commit();
-        } catch (SQLException ex) {
-            dao.rollback();
-            throw ex;
+            stub.criarOuAlterarCliente(cliente);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void delete(Integer id) throws SQLException {
-        Cliente cliente = buscarPorId(id);
-        if (cliente != null) {
-            try {
-                dao.delete(cliente);
-                dao.commit();
-            } catch (SQLException ex) {
-                dao.rollback();
-                throw ex;
-            }
+        try {
+            stub.deletarCliente(id);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public List listar(String nome, 
-            String email, String celular) {
-        List<String> criterio = new ArrayList<>();
-        if (nome != null && !"".equals(nome)) {
-            criterio.add("UPPER(nome) LIKE UPPER('%"+nome+"%')");
+
+    public List listar(String nome, String email, String celular) {
+        List<Cliente> lista = new ArrayList<>();
+        try {
+            lista = stub.listarClientes(nome, email, celular);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (email != null && !"".equals(email)) {
-            criterio.add("UPPER(email) LIKE UPPER('%"+email+"%')");
-        }
-        if (celular != null && !"".equals(celular)) {
-            criterio.add("celular LIKE '%"+celular+"%'");
-        }
-        String criteria = "";
-        if (!criterio.isEmpty()) {
-            for(int i = 0; i < criterio.size(); i++) {
-                if (i > 0) {
-                    criteria += " AND ";
-                }
-                criteria += criterio.get(i);
-            }
-        }
-        return dao.list(criteria);
+        return lista;
     }
-    
+
     public List listar() {
         return this.listar("", "", "");
     }
-    
+
     public Cliente buscarPorId(Integer id) {
-        return (Cliente) dao.findById(id);
+        Cliente c = new Cliente();
+        try {
+            c = (Cliente) stub.buscarClienteById(id);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return c;
     }
 }

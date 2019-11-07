@@ -22,10 +22,11 @@ public class ClienteDao extends AbstractDao {
     public ClienteDao(Conexao conexao) {
         super(conexao);
     }
-
+    
     @Override
-    public void save(Object object) throws SQLException {
+    public void saveOrUpdate(Object object) throws SQLException {
         Cliente cliente = (Cliente) object;
+        System.out.println("DAO SalvandoAtualizando o cliente: "+cliente.toString());
         String sql = "";
         try {
             Integer id = cliente.getId();

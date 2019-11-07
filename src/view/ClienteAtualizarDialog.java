@@ -7,8 +7,6 @@ package view;
 
 import controller.ClienteController;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
 
@@ -20,9 +18,16 @@ public class ClienteAtualizarDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form ClienteAtualizarDialog
+     *
      * @param parent
      * @param modal
      */
+    private ClienteController cr;
+
+    public void setCr(ClienteController cr) {
+        this.cr = cr;
+    }
+
     public ClienteAtualizarDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -75,11 +80,6 @@ public class ClienteAtualizarDialog extends javax.swing.JDialog {
         txtCodigo.setEditable(false);
         txtCodigo.setText("0");
         txtCodigo.setFocusable(false);
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
 
         lblEmail.setText("E-mail:");
 
@@ -181,23 +181,16 @@ public class ClienteAtualizarDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
         try {
-            ClienteController col = new ClienteController();
-            col.salvar(Integer.parseInt(txtCodigo.getText()),
+            this.cr.salvarOuAtualizar(Integer.parseInt(txtCodigo.getText()),
                     txtNome.getText(), txtEmail.getText(),
                     txtCelular.getText());
             JOptionPane.showMessageDialog(this, "Dados gravados com sucesso!");
             dispose();
         } catch (SQLException | NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClienteAtualizarDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 

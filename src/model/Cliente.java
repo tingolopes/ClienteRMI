@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,16 +13,17 @@ import java.sql.SQLException;
  *
  * @author nicho
  */
-public class Cliente {
+public class Cliente implements Serializable {
+
     private Integer id;
     private String nome;
     private String email;
     private String celular;
-    
+
     public Cliente() {
-        
+
     }
-    
+
     public Cliente(Integer id, String nome, String email,
             String celular) {
         this.id = id;
@@ -29,14 +31,14 @@ public class Cliente {
         this.email = email;
         this.celular = celular;
     }
-    
+
     public Cliente(ResultSet rs, String args[]) throws SQLException {
         this(rs.getInt(args[0]), rs.getString(args[1]),
                 rs.getString(args[2]), rs.getString(args[3]));
     }
-    
+
     public Cliente(ResultSet rs) throws SQLException {
-        this(rs, new String[] {"r_id", "r_nome", 
+        this(rs, new String[]{"r_id", "r_nome",
             "r_email", "r_celular"});
     }
 
@@ -71,4 +73,10 @@ public class Cliente {
     public void setCelular(String celular) {
         this.celular = celular;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", celular=" + celular + '}';
+    }
+    
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * @author santos
  */
 public interface DaoPattern {
-    public void save(Object object) throws SQLException;
+    public void saveOrUpdate(Object object) throws SQLException;
     public void delete(Object object) throws SQLException;
     public List<?> list();
     public List<?> list(String criteria);
