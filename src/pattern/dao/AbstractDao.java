@@ -1,8 +1,3 @@
-/*
- 
- 
- 
- */
 package pattern.dao;
 
 import connection.Conexao;
@@ -11,10 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author santos
- */
 public abstract class AbstractDao implements DaoPattern {
 
     protected Conexao conexao;

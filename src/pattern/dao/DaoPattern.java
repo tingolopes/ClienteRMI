@@ -1,17 +1,8 @@
-/*
- 
- 
- 
- */
 package pattern.dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author santos
- */
 public interface DaoPattern {
 
     public void saveOrUpdate(Object object) throws SQLException;

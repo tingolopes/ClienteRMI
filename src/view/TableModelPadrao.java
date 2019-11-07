@@ -1,17 +1,8 @@
-/*
- 
- 
- 
- */
 package view;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author santos
- */
 public abstract class TableModelPadrao extends AbstractTableModel {
 
     protected List lista;

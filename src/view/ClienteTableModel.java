@@ -1,17 +1,8 @@
-/*
- 
- 
- 
- */
 package view;
 
 import java.util.List;
 import model.Cliente;
 
-/**
- *
- * @author santos
- */
 public class ClienteTableModel extends TableModelPadrao {
 
     public ClienteTableModel(List<Cliente> lista) {
